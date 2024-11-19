@@ -5,32 +5,34 @@
   padding: 30px;
   border-radius: 10px;
   box-shadow: 0 30px 50px rgba(65, 50, 100, 0.08);
+  font-family: "Roboto", sans-serif;
+}
+
+.search-bar,
+.search-button {
+  font-size: 16px;
+  padding: 20px;
+  border: none;
+  border-radius: 5px;
 }
 
 .search-bar {
   background-color: #f9f7fe;
-  border: none;
   color: rgba(39, 33, 66, 0.4);
-  font-size: 16px;
-  padding: 20px;
   width: 75%;
-  border-radius: 6px;
 }
 
 .search-button {
   margin-left: 5px;
-  font-size: 16px;
   background-color: #885df1;
   color: white;
-  border: none;
-  padding: 20px;
   line-height: 1;
-  border-radius: 5px;
 }
 
 main {
   padding: 30px 0;
 }
+
 .current-city {
   font-size: 38px;
   font-weight: 900;
@@ -84,3 +86,4 @@ footer {
 a {
   color: #885df1;
 }
+
