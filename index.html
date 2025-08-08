@@ -1,20 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
   <head>
+    <title>Weather App</title>
+    <script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="src/styles.css" />
-    <title>My weather application</title>
   </head>
+
   <body>
-    <div class="weather-application-body">
+    <div class="app">
       <header>
-        <form>
+        <form id="weather-form">
           <input
             type="search"
             placeholder="Enter a city.."
             required
             class="search-bar"
+            id="new-place"
           />
           <input type="submit" value="Search" class="search-button" />
         </form>
@@ -22,15 +25,18 @@
       <main>
         <div class="current-weather">
           <div>
-            <h1 class="current-city">Paris</h1>
+            <h1 class="current-city" id="city">Sydney, NSW, Australia</h1>
             <p class="current-details">
-              Saturday 15:32, moderate rain <br />
-              Humidity: <strong>87%</strong>, Wind: <strong>7.2km/h</strong>
+              <span id="Day">Wednesday</span> <span id="Time">15:32</span>,
+              <span id="condition"> moderate rain </span><br />
+              Humidity: <strong id="humidityValue">87</strong
+              ><strong>%</strong>, Wind: <strong id="windValue">7.2</strong
+              ><strong>km/h</strong>
             </p>
           </div>
           <div class="current-temp">
-            <span class="current-icon">☀️</span>
-            <span class="current-value">14</span
+            <span class="current-icon" id="tempIcon">☀️</span>
+            <span class="current-value" id="tempValue">14</span
             ><span class="current-unit">°C</span>
           </div>
         </div>
@@ -38,15 +44,21 @@
       <footer>
         <p>
           This project was coded by
-          <a
-            href="https://www.linkedin.com/in/nonjabulo-phoswa/"
-            target="_blank"
+          <a href="https://www.linkedin.com/in/nonjabulo-phoswa/"
             >Nonjabulo Phoswa</a
           >
-          and is <a href="https://github.com/Nonjie-Phoswa/Weather-application.git" target="_blank"> on GitHub</a> and
+          and is
+          <a
+            href="https://github.com/Nonjie-Phoswa/Weather-application.git"
+            target="_blank"
+          >
+            on GitHub</a
+          >
+          and
           <a href="#" target="_blank">hosted on Netlify</a>
         </p>
       </footer>
     </div>
+    <script src="src/index.js"></script>
   </body>
 </html>
