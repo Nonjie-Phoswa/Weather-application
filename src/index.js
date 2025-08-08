@@ -62,6 +62,7 @@ function showCurrentForecast(response) {
   let currentHumidity = Math.round(response.data.temperature.humidity);
   let currentWindSpeed = response.data.wind.speed;
   let currentCondition = response.data.condition.description;
+  let conditionIcon = response.data.condition.icon;
 
   let weatherTempValue = document.querySelector("#tempValue");
   let humidity = document.querySelector("#humidityValue");
@@ -74,37 +75,28 @@ function showCurrentForecast(response) {
   wind.innerHTML = `${currentWindSpeed}`;
   conditionDescription.innerHTML = `${currentCondition}`;
 
-  switch (currentCondition) {
-    case "clear sky":
-      iconElement.innerHTML = "☀️";
-      break;
-    case "few clouds":
-      iconElement.innerHTML = "🌤️";
-      break;
-    case "scattered clouds":
-      iconElement.innerHTML = "⛅";
-      break;
-    case "broken clouds":
-      iconElement.innerHTML = "☁️";
-      break;
-    case "shower rain":
-      iconElement.innerHTML = "🌦️";
-      break;
-    case "rain":
-      iconElement.innerHTML = "🌧️";
-      break;
-    case "thunderstorm":
-      iconElement.innerHTML = "⛈️";
-      break;
-    case "snow":
-      iconElement.innerHTML = "❄️";
-      break;
-    case "mist":
-      iconElement.innerHTML = "🌫️";
-      break;
-    default:
-      iconElement.innerHTML = "❓";
-  }
+  const iconMap = {
+    "clear-sky-day": "☀️",
+    "clear-sky-night": "🌙",
+    "few-clouds-day": "🌤️",
+    "few-clouds-night": "🌥️",
+    "scattered-clouds-day": "⛅",
+    "scattered-clouds-night": "☁️",
+    "broken-clouds-day": "☁️",
+    "broken-clouds-night": "☁️",
+    "shower-rain-day": "🌦️",
+    "shower-rain-night": "🌧️",
+    "rain-day": "🌧️",
+    "rain-night": "🌧️",
+    "thunderstorm-day": "⛈️",
+    "thunderstorm-night": "⛈️",
+    "snow-day": "🌨️",
+    "snow-night": "❄️",
+    "mist-day": "🌫️",
+    "mist-night": "🌫️",
+  };
+
+  iconElement.innerHTML = iconMap[conditionIcon] || "❓";
 }
 
 let formDetails = document.querySelector("#weather-form");
