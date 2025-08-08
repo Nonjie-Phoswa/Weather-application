@@ -1,11 +1,14 @@
+.background {
+ background: rgba(201, 234, 252, 0.51);
+}
 
 .app {
-  background: rgb(201, 215, 234);
+ background: linear-gradient(89deg, rgb(9, 51, 142) 0.1%, rgb(26, 138, 211) 51.5%, rgb(136, 196, 228) 100.2%);
   max-width: 600px;
   margin: 60px auto;
   padding: 30px;
   border-radius: 10px;
-  box-shadow: 0 30px 50px rgba(65, 50, 100, 0.08);
+  box-shadow: 0 30px 50px rgba(144, 187, 239, 0.08);
   font-family: "Roboto", sans-serif;
 }
 
@@ -25,7 +28,7 @@
 
 .search-button {
   margin-left: 5px;
-  background-color: #8098af;
+  background-color: #6b8195;
   color: white;
   line-height: 1;
 }
@@ -35,29 +38,31 @@ main {
 }
 
 .current-city {
-  font-size: 35px;
+  font-size: 30px;
   font-weight: 900;
   margin: 0;
+  color: whitesmoke;
 }
 
 .current-details {
-  color: #8098af;
-  font-size: 16px;
+  color: #a9bfd3;
+  font-size: 18px;
   font-weight: 400;
   line-height: 24px;
 }
 
 .current-details strong {
-  color: #f65282;
+  color: #d2525a;
 }
 
 .current-weather {
   display: flex;
   justify-content: space-between;
+  color: whitesmoke;
 }
 
 .current-temp {
-  font-size: 48px;
+  font-size: 40px;
 }
 .current-icon {
   position: relative;
@@ -78,12 +83,12 @@ main {
 }
 
 footer {
-  border-top: 1px solid #8098af;
+  border-top: 1px solid #abc5dd;
   text-align: center;
   padding-top: 15px;
-  color: rgba(39, 33, 66, 0.4);
+  color:whitesmoke;
 }
 
 a {
-  color: #604c93;
+  color: #573f95;
 }
