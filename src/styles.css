@@ -12,6 +12,11 @@
   font-family: "Roboto", sans-serif;
 }
 
+.search-container {
+  display: flex;
+  align-items: center;
+}
+
 .search-bar,
 .search-button {
   font-size: 16px;
@@ -24,6 +29,8 @@
   background-color: #dde6f3;
   color: rgba(39, 33, 66, 0.4);
   width: 75%;
+  flex: 1;
+  min-width: 0;
 }
 
 .search-button {
@@ -31,6 +38,7 @@
   background-color: #6b8195;
   color: white;
   line-height: 1;
+  flex-shrink: 0;
 }
 
 main {
