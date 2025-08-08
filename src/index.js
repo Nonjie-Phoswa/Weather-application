@@ -62,19 +62,49 @@ function showCurrentForecast(response) {
   let currentHumidity = Math.round(response.data.temperature.humidity);
   let currentWindSpeed = response.data.wind.speed;
   let currentCondition = response.data.condition.description;
-  let currentIcon = response.data.condition.icon;
 
   let weatherTempValue = document.querySelector("#tempValue");
   let humidity = document.querySelector("#humidityValue");
   let wind = document.querySelector("#windValue");
   let conditionDescription = document.querySelector("#condition");
-  let conditionIcon = document.querySelector("#tempIcon");
+  let iconElement = document.querySelector("#tempIcon");
 
   weatherTempValue.innerHTML = `${temp}`;
   humidity.innerHTML = `${currentHumidity}`;
   wind.innerHTML = `${currentWindSpeed}`;
   conditionDescription.innerHTML = `${currentCondition}`;
-  conditionIcon.innerHTML = `${currentIcon}`;
+
+  switch (currentCondition) {
+    case "clear sky":
+      iconElement.innerHTML = "☀️";
+      break;
+    case "few clouds":
+      iconElement.innerHTML = "🌤️";
+      break;
+    case "scattered clouds":
+      iconElement.innerHTML = "⛅";
+      break;
+    case "broken clouds":
+      iconElement.innerHTML = "☁️";
+      break;
+    case "shower rain":
+      iconElement.innerHTML = "🌦️";
+      break;
+    case "rain":
+      iconElement.innerHTML = "🌧️";
+      break;
+    case "thunderstorm":
+      iconElement.innerHTML = "⛈️";
+      break;
+    case "snow":
+      iconElement.innerHTML = "❄️";
+      break;
+    case "mist":
+      iconElement.innerHTML = "🌫️";
+      break;
+    default:
+      iconElement.innerHTML = "❓";
+  }
 }
 
 let formDetails = document.querySelector("#weather-form");
