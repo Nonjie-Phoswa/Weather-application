@@ -62,7 +62,7 @@ function showCurrentForecast(response) {
   let currentHumidity = Math.round(response.data.temperature.humidity);
   let currentWindSpeed = response.data.wind.speed;
   let currentCondition = response.data.condition.description;
-  
+  let date = new Date(response.data.time * 1000);
 
   let cityElement = document.querySelector("#city");
   let weatherTempValue = document.querySelector("#tempValue");
@@ -78,31 +78,52 @@ function showCurrentForecast(response) {
   conditionDescription.innerHTML = `${currentCondition}`;
   iconElement.innerHTML = `<img src="${response.data.condition.icon_url}" class="weather-app-icon" />`;
 
+  getWeeklyForecast(response.data.city);
 }
 
-function displayForecast() {
-  let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri"];
+function getWeeklyForecast(city) {
+  let apiKey = "b33a0e7a6oc54ed07cdc24f8fb5ft43a";
+  let apiUrl = `https://api.shecodes.io/weather/v1/forecast?query=${city}&key=${apiKey}&units=metric`;
+
+  axios(apiUrl).then(displayWeeklyForecast);
+}
+
+function formatWeeklyDay (timestamp) {
+  let date = new Date (timestamp * 1000);
+  let days = ["Sun", "Mon", "Tue", "Wed", "Thur", "Fri", "Sat"];
+
+  return days[date.getDay()];
+}
+
+function displayWeeklyForecast(response) {
+  console.log(response.data);
+
   let forecastHtml = "";
 
-  days.forEach(function (day) {
-    forecastHtml =
-      forecastHtml +
-      `
-      <div class="weekly-forecast-day">
-        <div class="weekly-forecast-date">${day}</div>
-        <div class="weekly-forecast-icon">🌤️</div>
-        <div class="weekly-forecast-temperatures">
-          <div class="weekly-max-temperature">
-            <strong>15º</strong>
+  response.data.daily.forEach(function (day, index) {
+    if (index < 6 && index > 0) {
+      forecastHtml =
+        forecastHtml +
+        `
+        <div class="weekly-forecast-day">
+          <div class="weekly-forecast-date">${formatWeeklyDay(day.time)}</div>
+          <div><img src="${day.condition.icon_url
+          }" class="weekly-forecast-icon" /></div>
+          <div class="weekly-forecast-temperatures">
+            <div class="weekly-max-temperature">
+              <strong>${Math.round(day.temperature.maximum)}º</strong>
+            </div>
+            <div class="weather-min-temperature">${Math.round(
+              day.temperature.minimum
+            )}º</div>
           </div>
-          <div class="weather-min-temperature">9º</div>
         </div>
-      </div>
-    `;
+      `;
+    }
   });
 
   let forecastElement = document.querySelector("#weekly-forecast");
   forecastElement.innerHTML = forecastHtml;
 }
 
-displayForecast();
+displayWeeklyForecast();

@@ -103,8 +103,10 @@ main {
 }
 
 .weekly-forecast-icon {
-  font-size: 38px;
-  text-align: center;
+  width: 48px;
+  height: 48px;
+  display: block;
+  margin: 0 auto;
 }
 
 .weekly-forecast-temperatures {
