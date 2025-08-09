@@ -62,7 +62,7 @@ function showCurrentForecast(response) {
   let currentHumidity = Math.round(response.data.temperature.humidity);
   let currentWindSpeed = response.data.wind.speed;
   let currentCondition = response.data.condition.description;
-  let conditionIcon = response.data.condition.icon;
+  
 
   let cityElement = document.querySelector("#city");
   let weatherTempValue = document.querySelector("#tempValue");
@@ -76,27 +76,6 @@ function showCurrentForecast(response) {
   humidity.innerHTML = `${currentHumidity}`;
   wind.innerHTML = `${currentWindSpeed}`;
   conditionDescription.innerHTML = `${currentCondition}`;
+  iconElement.innerHTML = `<img src="${response.data.condition.icon_url}" class="weather-app-icon" />`;
 
-  const iconMap = {
-    "clear-sky-day": "☀️",
-    "clear-sky-night": "🌙",
-    "few-clouds-day": "🌤️",
-    "few-clouds-night": "🌥️",
-    "scattered-clouds-day": "⛅",
-    "scattered-clouds-night": "☁️",
-    "broken-clouds-day": "☁️",
-    "broken-clouds-night": "☁️",
-    "shower-rain-day": "🌦️",
-    "shower-rain-night": "🌧️",
-    "rain-day": "🌧️",
-    "rain-night": "🌧️",
-    "thunderstorm-day": "⛈️",
-    "thunderstorm-night": "⛈️",
-    "snow-day": "🌨️",
-    "snow-night": "❄️",
-    "mist-day": "🌫️",
-    "mist-night": "🌫️",
-  };
-
-  iconElement.innerHTML = iconMap[conditionIcon] || "❓";
 }

@@ -70,24 +70,22 @@ main {
 }
 
 .current-temp {
-  font-size: 40px;
+  display: flex;
 }
 .current-icon {
-  position: relative;
-  top: -5px;
-  font-size: 40px;
-  margin-right: 10px;
+  width: 88px;
+  height: 88px;
 }
 
 .current-value {
   font-size: 80px;
+  line-height: 80px;
   font-weight: bold;
 }
 
 .current-unit {
   font-size: 28px;
-  position: relative;
-  top: -38px;
+  margin-top: 6px;
 }
 
 footer {
