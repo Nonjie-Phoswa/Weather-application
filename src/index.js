@@ -46,9 +46,6 @@ let newPlace = document.querySelector("#new-place");
 function updatePlace(event) {
   event.preventDefault();
 
-  let searchedPlace = document.querySelector("#city");
-  searchedPlace.innerHTML = newPlace.value;
-
   //Get current forecast
   let city = `${newPlace.value}`;
   let apiKey = "b33a0e7a6oc54ed07cdc24f8fb5ft43a";
@@ -64,12 +61,14 @@ function showCurrentForecast(response) {
   let currentCondition = response.data.condition.description;
   let conditionIcon = response.data.condition.icon;
 
+  let cityElement = document.querySelector("#city");
   let weatherTempValue = document.querySelector("#tempValue");
   let humidity = document.querySelector("#humidityValue");
   let wind = document.querySelector("#windValue");
   let conditionDescription = document.querySelector("#condition");
   let iconElement = document.querySelector("#tempIcon");
 
+  cityElement.innerHTML = `${response.data.city}, ${response.data.country}`;
   weatherTempValue.innerHTML = `${temp}`;
   humidity.innerHTML = `${currentHumidity}`;
   wind.innerHTML = `${currentWindSpeed}`;
