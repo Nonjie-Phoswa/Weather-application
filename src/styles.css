@@ -88,6 +88,41 @@ main {
   margin-top: 6px;
 }
 
+.weekly-forecast {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 30px;
+}
+
+.weekly-forecast-date {
+  text-align: center;
+  color: whitesmoke;
+  font-size: 16px;
+  line-height: 20px;
+  margin-bottom: 10px;
+}
+
+.weekly-forecast-icon {
+  font-size: 38px;
+  text-align: center;
+}
+
+.weekly-forecast-temperatures {
+  text-align: center;
+  color: #a9bfd3;
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+}
+
+.weekly-max-temperature {
+  padding: 0 10px;
+}
+
+.weekly-min-temperature {
+  padding: 0 10px;
+}
+
 footer {
   border-top: 1px solid #abc5dd;
   text-align: center;

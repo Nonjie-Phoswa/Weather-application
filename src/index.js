@@ -79,3 +79,30 @@ function showCurrentForecast(response) {
   iconElement.innerHTML = `<img src="${response.data.condition.icon_url}" class="weather-app-icon" />`;
 
 }
+
+function displayForecast() {
+  let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri"];
+  let forecastHtml = "";
+
+  days.forEach(function (day) {
+    forecastHtml =
+      forecastHtml +
+      `
+      <div class="weekly-forecast-day">
+        <div class="weekly-forecast-date">${day}</div>
+        <div class="weekly-forecast-icon">🌤️</div>
+        <div class="weekly-forecast-temperatures">
+          <div class="weekly-max-temperature">
+            <strong>15º</strong>
+          </div>
+          <div class="weather-min-temperature">9º</div>
+        </div>
+      </div>
+    `;
+  });
+
+  let forecastElement = document.querySelector("#weekly-forecast");
+  forecastElement.innerHTML = forecastHtml;
+}
+
+displayForecast();
