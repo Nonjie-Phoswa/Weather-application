@@ -1,3 +1,19 @@
+let formDetails = document.querySelector("#weather-form");
+formDetails.addEventListener("submit", updatePlace);
+
+//Update search engine
+let newPlace = document.querySelector("#searched-place");
+function updatePlace(event) {
+  event.preventDefault();
+
+  //Get current forecast
+  let city = `${newPlace.value}`;
+  let apiKey = "b33a0e7a6oc54ed07cdc24f8fb5ft43a";
+  let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=metric`;
+
+  axios.get(apiUrl).then(showCurrentForecast);
+}
+
 //Update date and time
 function updateDateTime() {
   let now = new Date();
@@ -40,19 +56,6 @@ function updateDateTime() {
 }
 
 updateDateTime();
-
-//Update search engine
-let newPlace = document.querySelector("#new-place");
-function updatePlace(event) {
-  event.preventDefault();
-
-  //Get current forecast
-  let city = `${newPlace.value}`;
-  let apiKey = "b33a0e7a6oc54ed07cdc24f8fb5ft43a";
-  let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=metric`;
-
-  axios.get(apiUrl).then(showCurrentForecast);
-}
 
 function showCurrentForecast(response) {
   let temp = Math.round(response.data.temperature.current);
@@ -97,6 +100,3 @@ function showCurrentForecast(response) {
 
   iconElement.innerHTML = iconMap[conditionIcon] || "❓";
 }
-
-let formDetails = document.querySelector("#weather-form");
-formDetails.addEventListener("submit", updatePlace);
