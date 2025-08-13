@@ -1,9 +1,9 @@
 .background {
- background: rgba(201, 234, 252, 0.51);
+ background: rgba(61, 117, 148, 0.51);
 }
 
 .app {
- background: linear-gradient(89deg, rgb(9, 51, 142) 0.1%, rgb(26, 138, 211) 51.5%, rgb(136, 196, 228) 100.2%);
+ background: linear-gradient(89deg, rgb(17, 81, 123) 10.1%, rgb(37, 136, 202) 40.5%, rgb(87, 173, 219) 100.2%);
   max-width: 600px;
   margin: 60px auto;
   padding: 30px;
@@ -41,6 +41,11 @@
   flex-shrink: 0;
 }
 
+.errorMessage {
+  color: red; 
+  font-size: 0.9em;
+}
+
 main {
   padding: 30px 0;
 }
@@ -55,7 +60,7 @@ main {
 .current-details {
   color: #a9bfd3;
   font-size: 18px;
-  font-weight: 400;
+  font-weight: 600;
   line-height: 24px;
 }
 
@@ -92,6 +97,7 @@ main {
   display: flex;
   justify-content: space-around;
   margin-top: 30px;
+  opacity: 85%;
 }
 
 .weekly-forecast-date {
@@ -111,7 +117,7 @@ main {
 
 .weekly-forecast-temperatures {
   text-align: center;
-  color: #a9bfd3;
+  color: white;
   margin-top: 10px;
   display: flex;
   justify-content: center;

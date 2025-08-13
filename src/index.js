@@ -1,17 +1,38 @@
 let formDetails = document.querySelector("#weather-form");
-formDetails.addEventListener("submit", updatePlace);
 
 //Update search engine
 let newPlace = document.querySelector("#searched-place");
+formDetails.addEventListener("submit", updatePlace);
+
 function updatePlace(event) {
   event.preventDefault();
 
-  //Get current forecast
-  let city = `${newPlace.value}`;
+  let city = `${newPlace.value.trim()}`;
+  let errorMessage = document.querySelector("#errorMessage");
+
+  errorMessage.textContent = "";
+
+  if (!city) {
+    errorMessage.textContent = "Please enter a city name.";
+    return;
+  }
+
+  if (!/^[a-zA-Z\s]+$/.test(city)) {
+    errorMessage.textContent =
+      "Invalid city name. Only letters and spaces allowed.";
+    return;
+  }
+
+  //Call API
   let apiKey = "b33a0e7a6oc54ed07cdc24f8fb5ft43a";
   let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=metric`;
 
-  axios.get(apiUrl).then(showCurrentForecast);
+  axios
+    .get(apiUrl)
+    .then(showCurrentForecast)
+    .catch((error) => {
+      errorMessage.textContent = "City not found. Please check your spelling.";
+    });
 }
 
 //Update date and time
@@ -62,7 +83,7 @@ function showCurrentForecast(response) {
   let currentHumidity = Math.round(response.data.temperature.humidity);
   let currentWindSpeed = response.data.wind.speed;
   let currentCondition = response.data.condition.description;
-  let date = new Date(response.data.time * 1000);
+  // let date = new Date(response.data.time * 1000);
 
   let cityElement = document.querySelector("#city");
   let weatherTempValue = document.querySelector("#tempValue");
@@ -107,15 +128,16 @@ function displayWeeklyForecast(response) {
         `
         <div class="weekly-forecast-day">
           <div class="weekly-forecast-date">${formatWeeklyDay(day.time)}</div>
-          <div><img src="${day.condition.icon_url
+          <div><img src="${
+            day.condition.icon_url
           }" class="weekly-forecast-icon" /></div>
           <div class="weekly-forecast-temperatures">
             <div class="weekly-max-temperature">
-              <strong>${Math.round(day.temperature.maximum)}º</strong>
+              <strong>${Math.round(day.temperature.maximum)}°</strong>
             </div>
             <div class="weather-min-temperature">${Math.round(
               day.temperature.minimum
-            )}º</div>
+            )}°</div>
           </div>
         </div>
       `;
