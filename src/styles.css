@@ -78,8 +78,13 @@ main {
   display: flex;
 }
 .current-icon {
-  width: 88px;
-  height: 88px;
+  width: 80px;
+  height: 80px;
+  transition: transform 0.3s ease;
+}
+
+.current-icon img:hover {
+  transform: scale(1.2);
 }
 
 .current-value {
@@ -113,6 +118,11 @@ main {
   height: 48px;
   display: block;
   margin: 0 auto;
+  transition: transform 0.3s ease;
+}
+
+.weekly-forecast-icon:hover {
+  transform: scale(2) rotate(10deg);
 }
 
 .weekly-forecast-temperatures {
@@ -121,6 +131,11 @@ main {
   margin-top: 10px;
   display: flex;
   justify-content: center;
+  transition: transform 0.3s ease;
+}
+
+.weekly-forecast-temperatures:hover {
+  transform: scale(1.3);
 }
 
 .weekly-max-temperature {
