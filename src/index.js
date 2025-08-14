@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
+  // If browser supports geolocation, get user's location
   if ("geolocation" in navigator) {
     navigator.geolocation.getCurrentPosition(
       fetchWeatherByCoords,
@@ -7,6 +8,12 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
+// Event listeners
+let formDetails = document.querySelector("#weather-form");
+let newPlace = document.querySelector("#searched-place");
+formDetails.addEventListener("submit", updatePlace);
+
+// Fetch current weather by coordinates from geolocation
 function fetchWeatherByCoords(position) {
   const latitude = position.coords.latitude;
   const longitude = position.coords.longitude;
@@ -21,11 +28,13 @@ function fetchWeatherByCoords(position) {
     });
 }
 
+// Handle geolocation error
 function handleGeoError(error) {
   console.warn("Geolocation error:", error.message);
   updatePlaceWithDefault("Johannesburg");
 }
 
+// Fetch weather for default city
 function updatePlaceWithDefault(defaultCity) {
   let apiKey = "b33a0e7a6oc54ed07cdc24f8fb5ft43a";
   let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${defaultCity}&key=${apiKey}&units=metric`;
@@ -33,18 +42,13 @@ function updatePlaceWithDefault(defaultCity) {
   axios.get(apiUrl).then(showCurrentForecast);
 }
 
-let formDetails = document.querySelector("#weather-form");
 
-//Update search engine
-let newPlace = document.querySelector("#searched-place");
-formDetails.addEventListener("submit", updatePlace);
-
+// Handle city search
 function updatePlace(event) {
   event.preventDefault();
 
   let city = `${newPlace.value.trim()}`;
   let errorMessage = document.querySelector("#errorMessage");
-
   errorMessage.textContent = "";
 
   if (!city) {
@@ -58,19 +62,19 @@ function updatePlace(event) {
     return;
   }
 
-  //Call API
+  //Call API with city name
   let apiKey = "b33a0e7a6oc54ed07cdc24f8fb5ft43a";
   let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=metric`;
 
   axios
     .get(apiUrl)
     .then(showCurrentForecast)
-    .catch((error) => {
+    .catch(() => {
       errorMessage.textContent = "City not found. Please check your spelling.";
     });
 }
 
-//Update date and time
+// Update current day and time on page
 function updateDateTime() {
   let now = new Date();
 
@@ -87,6 +91,7 @@ function updateDateTime() {
 
   let hours = now.getHours();
   let minutes = now.getMinutes();
+
   let formattedHours;
   let formattedMinutes;
 
@@ -113,12 +118,12 @@ function updateDateTime() {
 
 updateDateTime();
 
+// Display current weather info on page
 function showCurrentForecast(response) {
   let temp = Math.round(response.data.temperature.current);
   let currentHumidity = Math.round(response.data.temperature.humidity);
   let currentWindSpeed = response.data.wind.speed;
   let currentCondition = response.data.condition.description;
-  // let date = new Date(response.data.time * 1000);
 
   let cityElement = document.querySelector("#city");
   let weatherTempValue = document.querySelector("#tempValue");
@@ -134,9 +139,11 @@ function showCurrentForecast(response) {
   conditionDescription.innerHTML = `${currentCondition}`;
   iconElement.innerHTML = `<img src="${response.data.condition.icon_url}" class="weather-app-icon" />`;
 
+  // Fetch 7-day forecast for the city
   getWeeklyForecast(response.data.city);
 }
 
+// Fetch weekly forecast by city
 function getWeeklyForecast(city) {
   let apiKey = "b33a0e7a6oc54ed07cdc24f8fb5ft43a";
   let apiUrl = `https://api.shecodes.io/weather/v1/forecast?query=${city}&key=${apiKey}&units=metric`;
@@ -144,6 +151,7 @@ function getWeeklyForecast(city) {
   axios(apiUrl).then(displayWeeklyForecast);
 }
 
+// Format day name for weekly forecast
 function formatWeeklyDay(timestamp) {
   let date = new Date(timestamp * 1000);
   let days = ["Sun", "Mon", "Tue", "Wed", "Thur", "Fri", "Sat"];
@@ -151,6 +159,7 @@ function formatWeeklyDay(timestamp) {
   return days[date.getDay()];
 }
 
+// Display weekly forecast on page
 function displayWeeklyForecast(response) {
   console.log(response.data);
 
