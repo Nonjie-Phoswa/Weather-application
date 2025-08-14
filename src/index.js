@@ -1,3 +1,38 @@
+document.addEventListener("DOMContentLoaded", () => {
+  if ("geolocation" in navigator) {
+    navigator.geolocation.getCurrentPosition(
+      fetchWeatherByCoords,
+      handleGeoError
+    );
+  }
+});
+
+function fetchWeatherByCoords(position) {
+  const latitude = position.coords.latitude;
+  const longitude = position.coords.longitude;
+  const apiKey = "b33a0e7a6oc54ed07cdc24f8fb5ft43a";
+  const apiUrl = `https://api.shecodes.io/weather/v1/current?lon=${longitude}&lat=${latitude}&key=${apiKey}&units=metric`;
+
+  axios
+    .get(apiUrl)
+    .then(showCurrentForecast)
+    .catch((error) => {
+      console.error("Error fetching weather by location:", error);
+    });
+}
+
+function handleGeoError(error) {
+  console.warn("Geolocation error:", error.message);
+  updatePlaceWithDefault("Johannesburg");
+}
+
+function updatePlaceWithDefault(defaultCity) {
+  let apiKey = "b33a0e7a6oc54ed07cdc24f8fb5ft43a";
+  let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${defaultCity}&key=${apiKey}&units=metric`;
+
+  axios.get(apiUrl).then(showCurrentForecast);
+}
+
 let formDetails = document.querySelector("#weather-form");
 
 //Update search engine
@@ -109,8 +144,8 @@ function getWeeklyForecast(city) {
   axios(apiUrl).then(displayWeeklyForecast);
 }
 
-function formatWeeklyDay (timestamp) {
-  let date = new Date (timestamp * 1000);
+function formatWeeklyDay(timestamp) {
+  let date = new Date(timestamp * 1000);
   let days = ["Sun", "Mon", "Tue", "Wed", "Thur", "Fri", "Sat"];
 
   return days[date.getDay()];
