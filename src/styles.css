@@ -3,7 +3,7 @@
 }
 
 .app {
- background: linear-gradient(89deg, rgb(14, 63, 96) 0%,  rgb(17, 81, 123) 15%, rgb(37, 136, 202) 40.5%, rgb(87, 173, 219) 100.2%);
+ background: linear-gradient(89deg, rgb(18, 66, 99) 0%,  rgb(22, 94, 142) 15%, rgb(40, 122, 177) 40.5%, rgb(67, 140, 180) 100.2%);
   max-width: 600px;
   margin: 60px auto;
   padding: 30px;
@@ -159,5 +159,6 @@ footer {
 }
 
 a {
-  color: #573f95;
+  color: #e1aeff;
+  font-size: smaller;
 }
