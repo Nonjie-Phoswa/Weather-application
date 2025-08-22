@@ -27,10 +27,10 @@ function fetchWeatherByCoords(position) {
       .catch((error) => {
         console.error("Error fetching weather by location:", error);
       });
-    } catch(error){
-      console.error("Unexpected error:", error);
-      alert("Something went wrong while fetching weather.");
-    }
+  } catch (error) {
+    console.error("Unexpected error:", error);
+    alert("Something went wrong while fetching weather.");
+  }
 }
 
 // Handle geolocation error
@@ -46,7 +46,7 @@ function updatePlaceWithDefault(defaultCity) {
     let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${defaultCity}&key=${apiKey}&units=metric`;
 
     axios.get(apiUrl).then(showCurrentForecast);
-  } catch (error){
+  } catch (error) {
     console.error("Unexpected error:", error);
     alert("Something went wrong while fetching default city weather.");
   }
@@ -72,7 +72,7 @@ function updatePlace(event) {
   }
 
   //Call API with city name
-  try{
+  try {
     let apiKey = "b33a0e7a6oc54ed07cdc24f8fb5ft43a";
     let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=metric`;
 
@@ -80,12 +80,13 @@ function updatePlace(event) {
       .get(apiUrl)
       .then(showCurrentForecast)
       .catch(() => {
-        errorMessage.textContent = "City not found. Please check your spelling.";
+        errorMessage.textContent =
+          "City not found. Please check your spelling.";
       });
-    } catch (error) {
-      console.error("Unexpected error:", error);
-      errorMessage.textContent = "Something went wrong. Please try again.";
-    }
+  } catch (error) {
+    console.error("Unexpected error:", error);
+    errorMessage.textContent = "Something went wrong. Please try again.";
+  }
 }
 
 // Update current day and time on page

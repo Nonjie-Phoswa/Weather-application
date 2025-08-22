@@ -1,9 +1,15 @@
 .background {
- background: rgba(61, 117, 148, 0.51);
+  background: rgba(61, 117, 148, 0.51);
 }
 
 .app {
- background: linear-gradient(89deg, rgb(18, 66, 99) 0%,  rgb(22, 94, 142) 15%, rgb(40, 122, 177) 40.5%, rgb(67, 140, 180) 100.2%);
+  background: linear-gradient(
+    89deg,
+    rgb(18, 66, 99) 0%,
+    rgb(22, 94, 142) 15%,
+    rgb(40, 122, 177) 40.5%,
+    rgb(67, 140, 180) 100.2%
+  );
   max-width: 600px;
   margin: 60px auto;
   padding: 30px;
@@ -42,12 +48,23 @@
 }
 
 .errorMessage {
-  color: #ff6b6b; 
+  color: #ff6b6b;
   font-size: 0.9em;
 }
 
 main {
   padding: 30px 0;
+}
+
+.current-weather,
+.weekly-forecast {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .current-city {
@@ -122,11 +139,12 @@ main {
 }
 
 @keyframes float {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0);
   }
   50% {
-    transform: translateY(-10px); 
+    transform: translateY(-10px);
   }
 }
 
@@ -155,10 +173,10 @@ footer {
   border-top: 1px solid #abc5dd;
   text-align: center;
   padding-top: 15px;
-  color:whitesmoke;
+  color: whitesmoke;
+  font-size: smaller;
 }
 
 a {
   color: #e1aeff;
-  font-size: smaller;
 }
