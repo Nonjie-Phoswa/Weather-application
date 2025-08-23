@@ -11,7 +11,43 @@ document.addEventListener("DOMContentLoaded", () => {
 // Event listeners
 let formDetails = document.querySelector("#weather-form");
 let newPlace = document.querySelector("#searched-place");
+let searchInput = document.querySelector("#searched-place");
+let suggestionsList = document.querySelector("#suggestions");
 formDetails.addEventListener("submit", updatePlace);
+
+// City suggestions (OpenWeather Geocoding)
+searchInput.addEventListener("input", async () => {
+  let query = searchInput.value.trim();
+
+  if (query.length < 3) {
+    suggestionsList.innerHTML = "";
+    return;
+  }
+
+  try {
+    let response = await fetch(`http://localhost:3000/geocode?q=${query}`);
+
+    if (!response.ok) {
+      throw new Error("API request failed");
+    }
+
+    let data = await response.json();
+
+    suggestionsList.innerHTML = "";
+    data.forEach((place) => {
+      let li = document.createElement("li");
+      li.textContent = `${place.name}, ${place.country}`;
+      li.addEventListener("click", () => {
+        searchInput.value = place.name;
+        suggestionsList.innerHTML = "";
+      });
+      suggestionsList.appendChild(li);
+    });
+  } catch (error) {
+    console.log("Geocoding API unavailable, fallback to manual search.");
+    suggestionsList.innerHTML = "";
+  }
+});
 
 // Fetch current weather by coordinates from geolocation
 function fetchWeatherByCoords(position) {
