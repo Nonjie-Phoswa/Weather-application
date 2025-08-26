@@ -1,5 +1,4 @@
 let express = require("express");
-let fetch = require("node-fetch");
 let app = express();
 let PORT = 3000;
 let dotenv = require("dotenv");

@@ -13,41 +13,106 @@ let formDetails = document.querySelector("#weather-form");
 let newPlace = document.querySelector("#searched-place");
 let searchInput = document.querySelector("#searched-place");
 let suggestionsList = document.querySelector("#suggestions");
+let searchContainer = document.querySelector(".search-container");
 formDetails.addEventListener("submit", updatePlace);
 
-// City suggestions (OpenWeather Geocoding)
-searchInput.addEventListener("input", async () => {
-  let query = searchInput.value.trim();
+const cityElement = document.getElementById("city");
+const conditionElement = document.getElementById("condition");
+const humidityElement = document.getElementById("humidityValue");
+const windElement = document.getElementById("windValue");
+const tempValueElement = document.getElementById("tempValue");
+const tempIconElement = document.getElementById("tempIcon");
 
-  if (query.length < 3) {
+// Fetch weather from SheCodes API
+async function fetchWeather(city) {
+  try {
+    const apiKey = "b33a0e7a6oc54ed07cdc24f8fb5ft43a";
+    const response = await axios.get(
+      `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=metric`
+    );
+
+    const data = response.data;
+
+    // Update your existing HTML
+    cityElement.textContent = data.city;
+    conditionElement.textContent = data.condition.description;
+    humidityElement.textContent = data.temperature.humidity;
+    windElement.textContent = data.wind.speed;
+    tempValueElement.textContent = Math.round(data.temperature.current);
+
+    // Weather icon
+    tempIconElement.innerHTML = `<img src="${data.condition.icon_url}" alt="${data.condition.description}">`;
+  } catch (error) {
+    console.error("Error fetching weather:", error);
+  }
+}
+
+// Listen for input → fetch suggestions from netlify function
+searchInput.addEventListener("input", async function () {
+  console.log("Typing detected:", searchInput.value);
+  const query = searchInput.value.trim();
+
+  if (query.length < 2) {
     suggestionsList.innerHTML = "";
     return;
   }
 
   try {
-    let response = await fetch(`http://localhost:3000/geocode?q=${query}`);
+    const response = await fetch(`/.netlify/functions/geocode?q=${query}`);
 
-    if (!response.ok) {
-      throw new Error("API request failed");
-    }
+    if (!response.ok) throw new Error("Failed to fetch suggestions");
 
-    let data = await response.json();
+    const data = await response.json();
 
     suggestionsList.innerHTML = "";
+
+    if (data.length === 0) {
+      const li = document.createElement("li");
+      li.textContent =
+        "No suggestions available. Type full city name and press Search.";
+      li.style.fontStyle = "italic";
+      li.style.cursor = "default";
+      suggestionsList.appendChild(li);
+      return;
+    }
+
     data.forEach((place) => {
-      let li = document.createElement("li");
-      li.textContent = `${place.name}, ${place.country}`;
+      const li = document.createElement("li");
+      li.textContent = `${place.name}${
+        place.state ? ", " + place.state : ""
+      }, ${place.country}`;
+
+    
       li.addEventListener("click", () => {
-        searchInput.value = place.name;
-        suggestionsList.innerHTML = "";
+        searchInput.value = li.textContent; z
+        suggestionsList.innerHTML = ""; 
+        fetchWeather(li.textContent);
       });
+
       suggestionsList.appendChild(li);
     });
   } catch (error) {
-    console.log("Geocoding API unavailable, fallback to manual search.");
+    console.error("Error fetching suggestions:", error);
+  }
+});
+
+// Close suggestions if clicking outside
+document.addEventListener("click", (e) => {
+  if (!searchContainer.contains(e.target)) {
     suggestionsList.innerHTML = "";
   }
 });
+
+// Helper to fetch weather by lat/lon
+function updatePlaceByCoords(lat, lon) {
+  let apiKey = "b33a0e7a6oc54ed07cdc24f8fb5ft43a";
+  let apiUrl = `https://api.shecodes.io/weather/v1/current?lon=${lon}&lat=${lat}&key=${apiKey}&units=metric`;
+
+  axios
+    .get(apiUrl)
+    .then(showCurrentForecast)
+    .catch((error) => console.error("Error fetching weather:", error));
+}
 
 // Fetch current weather by coordinates from geolocation
 function fetchWeatherByCoords(position) {

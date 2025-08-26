@@ -11,7 +11,7 @@
   <body class = "background">
     <div class="app">
       <header>
-        <form id="weather-form" class="search-container">
+        <form id="weather-form" class="search-container" autocomplete="off">
           <input
             type="search"
             placeholder="Enter a city.."
@@ -20,9 +20,9 @@
             id="searched-place"
           />
           <input type="submit" value="Search" class="search-button" />
+          <ul id="suggestions" aria-label="City suggestions"></ul>
         </form>
         <span class = "errorMessage" id="errorMessage"></span>
-        <ul id="suggestions"></ul>
       </header>
       <main>
         <div class="current-weather">
