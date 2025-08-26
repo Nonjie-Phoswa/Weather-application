@@ -84,7 +84,7 @@ searchInput.addEventListener("input", async function () {
 
     
       li.addEventListener("click", () => {
-        searchInput.value = li.textContent; z
+        searchInput.value = li.textContent; 
         suggestionsList.innerHTML = ""; 
         fetchWeather(li.textContent);
       });
